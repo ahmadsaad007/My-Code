@@ -1,0 +1,107 @@
+package homework.assignment.pkg2;
+
+/**
+ *
+ * @author tug55667
+ */
+import java.util.*;
+
+public class HomeworkAssignment2 {
+
+   
+    public static <E> boolean isUnique(List <E> list) {
+        
+        boolean result = true;
+        //checks if the elements in the List are unique ornot. If not unique, return false
+        for(int i = 0; i <list.size()-1; i++ ){
+            if(list.get(i).equals(list.get(i+1)))
+                result = false;
+            
+        }
+        
+        return result;
+    }
+    public static int sum(List<Integer> list){
+        
+        //gets the sum of all integers in the list and returns the sum
+        int sum = 0;
+        for(int i = 0; i <list.size(); i++ ){
+            sum = sum + list.get(i);
+        }
+        return sum;
+    }
+    public static List<Integer> allMultiples(List<Integer> list, int a){
+        //returns a new list which has those elements of original list which are multiple of the given int
+        List<Integer> newList = new ArrayList<>(list.size());
+        for(int i=0; i<list.size();i++){
+            if(list.get(i)%a==0)
+                newList.add(list.get(i));
+        }
+        return newList;
+    }
+    public static List<String> allStringsOfSize(List<String> list, int length){
+        //return a new List<String> which contains all the elements of the original that are length characters long
+        List <String> newList = new ArrayList <String> ();
+        for(int i = 0; i< list.size();i++){
+            String temp = list.get(i);
+            if(temp.length()== length){
+                newList.add(temp);
+            }
+        }
+        return newList;
+    }
+    public static List<String> stringToListOfWords(String sentence){
+        //takes a String of words separated by white space and save the words in a list of Strings and return the list
+        List <String> wordList = new ArrayList <String> ();
+        String array[] = sentence.split("\\s+");
+        for(int i =0; i<array.length;i++){
+            if(array[i].equals(",")){
+                //if a comma is a character separated by spaces.
+                continue;
+            }
+            String word = array[i].replaceAll("[^a-zA-Z]","");//using in-built functions to get the words only without punctuations
+            wordList.add(word);
+        }
+        return wordList;
+    }
+    
+    public static <E> void removeAllInstances(List <E> list, E item){
+        //removes each item in ther list that matches the given item
+        int size = list.size();
+        for(int i = 0; i< size; i++){
+            if(list.get(i).equals(item)){
+                list.remove(i);
+                i--;
+                size--;
+            }
+            
+        }
+        
+    }
+    
+    public static void main(String args[]){
+        Scanner sc = new Scanner(System.in);
+        List <Integer> list = new ArrayList<>();
+        List <String> strList = new ArrayList<>();
+        
+        Collections.addAll(list, 1,2,2,3,5,5,6,5,8,9);
+        Collections.addAll(strList, "Just", "living", "in", "a", "dream");
+        List <String> sameSizeList = allStringsOfSize(strList,4);
+        
+        List<Integer> multiplesList = allMultiples(list, 5);
+        System.out.println(multiplesList);
+        removeAllInstances(list, 5);
+        System.out.println("The list after eliminating the element 5 is "+ list);
+        
+        System.out.println("The sum of all elements in the list is " + sum(list));
+        
+        System.out.println("Enter a sentence ");
+        String sentence =  sc.nextLine();
+        List<String> wordList = stringToListOfWords(sentence);
+        System.out.println("The list of words contained in the sentence is: "+ wordList);
+        
+        System.out.println("The Integer list is unique "+isUnique(list));
+        System.out.println("The String list is unique "+isUnique(strList));
+        
+    }
+}
